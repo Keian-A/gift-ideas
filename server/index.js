@@ -27,6 +27,7 @@ db.once('open', () => {
     console.log('Database connected!');
 });
 
+app.get('/members', routes.getMembers);
 app.post('/create-member', routes.createMember);
 app.post('/add-gift', routes.addGift);
 app.post('/remove-gift', routes.removeGift);

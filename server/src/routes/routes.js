@@ -4,6 +4,15 @@ const Member = require('../models/Family.js');
 
 const routes = {};
 
+routes.getMembers = async function (req, res) {
+    try {
+        let familyData = await Member.find({});
+        res.send(familyData);
+    } catch {
+        res.status(500).send('Server error.');
+    }
+}
+
 routes.createMember = async function (req, res) {
     try {
         let result = await Member.create(req.body);
