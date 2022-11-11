@@ -24,7 +24,7 @@ export default function Login({ setValidated, setList, setCurrentMember }) {
 
     const validateUser = (e) => {
         e.preventDefault();
-        axios.post(`${SERVER_URL}/validate/`, cred).then(({ data }) => {
+        axios.post(`${SERVER_URL}/validate`, cred).then(({ data }) => {
             setValidated(true);
             setList(data);
         });

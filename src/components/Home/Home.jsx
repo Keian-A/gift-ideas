@@ -9,7 +9,7 @@ export default function Home({ list, currentMember, setList }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let { data } = await axios.post(`${SERVER_URL}/addGift/`, { giftName: item.giftName, link: item.link, username: currentMember });
+        let { data } = await axios.post(`${SERVER_URL}/addGift`, { giftName: item.giftName, link: item.link, username: currentMember });
         setList(data);
     }
 
