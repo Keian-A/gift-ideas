@@ -9,7 +9,8 @@ const GiftSchema = new Schema({
 });
 
 const FamilySchema = new Schema({
-    name: { type: String, required: true },
+    username: { type: String, required: true },
+    password: { type: String, required: true },
     gifts: [GiftSchema]
 });
 

@@ -1,0 +1,22 @@
+th {
+    border: 1px solid black;
+}
+
+#deleteButton {
+    margin: 0 5px;
+    margin-top: 5px;
+}
+
+#giftName {
+    margin: 0 5px;
+    margin-bottom: 5px;
+}
+
+#updateButton {
+    margin: 0 5px;
+    margin-top: 5px;
+}
+
+h6 {
+    margin: 2px auto;
+}

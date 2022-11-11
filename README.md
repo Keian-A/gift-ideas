@@ -1,9 +1,13 @@
 # Gift Ideas
 
-An application I am making primarily for my own family. Open source.
+User Experience:
+- Needs to check user on load, save to state after checking with back-end to see if valid login.
+- Once logged in, get req to back-end to get all lists from db.
+- Render a list displaying what everyone has (and crosses out what other people have crossed out except the person logged in)
 
-I came accross the problem where we were just using a Google sheets application in order to add gifts that we wanted. Family members would look at this sheet and cross out the gift we were getting for someone.
+List needs-to-have:
+- Have an option to add an item to your own list, or remove an item on the list
 
-Problems that arose:
-- When you cross out a gift, the person would see what they are getting when they add something next.
-- When you delete a gift you are purchasing, the person who wanted that gift might re-add it because they didn't know it was bought.
+- Created Login component to validate user before asking for the list. Need to validate user on back-end still and then grab full list and send to front-end.
+
+IGNORE THIS TRASH CAN OF A FILE LOL

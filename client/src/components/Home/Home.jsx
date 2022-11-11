@@ -1,68 +1,42 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import RenderedList from '../RenderedList/RenderedList.jsx';
 import axios from 'axios';
-import { Box, Drawer, Button, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-export default function TemporaryDrawer() {
-    const [memberArr, setMemberArr] = useState([]);
-    // The spoilers variable is created so if someone who clicks on a name will see the gift info for that person, if a gift was bought or not
-    const [spoilers, setSpoilers] = useState(false);
+export default function Home({ list, currentMember, setList }) {
 
-    useEffect(() => {
-        fetchFamilyData();
-    }, [])
+    const [item, setItem] = useState({ giftName: '', link: '' });
 
-    async function fetchFamilyData() {
-        axios.get(`${process.env.REACT_APP_SERVER}/members`).then((data) => {
-            console.log(data.data);
-            setMemberArr(data.data);
-        });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        let { data } = await axios.post(`${SERVER_URL}/addGift`, { giftName: item.giftName, link: item.link, username: currentMember });
+        setList(data);
     }
 
-    const [state, setState] = useState({
-        left: false,
-    });
-
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-            return;
+    const handleChange = (e) => {
+        switch (e.target.id) {
+            case "giftName":
+                setItem({ giftName: e.target.value, link: item.link });
+                break;
+            case "link":
+                setItem({ giftName: item.giftName, link: e.target.value });
+                break;
+            default:
+                console.error('Reading wrong element data.');
         }
-
-        setState({ ...state, [anchor]: open });
-    };
-
-    const list = (anchor) => (
-        <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-            role="presentation"
-            onClick={toggleDrawer(anchor, false)}
-            onKeyDown={toggleDrawer(anchor, false)}
-        >
-            <List>
-                {memberArr.map((item, idx) => (
-                    <ListItem key={idx} disablePadding>
-                        <ListItemButton>
-                            <ListItemText primary={item.name} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+    }
 
     return (
         <div id="home">
-            {["Add to list", "Buy a gift"].map((anchor, idx) => (
-                <div key={idx}>
-                    <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-                    <Drawer
-                        anchor={anchor}
-                        open={state[anchor]}
-                        onClose={toggleDrawer(anchor, false)}
-                    >
-                        {list(anchor)}
-                    </Drawer>
-                </div>
-            ))}
+            <h3>Add an item to your list</h3>
+            <form onSubmit={handleSubmit}>
+                <label>Item name</label>
+                <input id="giftName" onChange={handleChange} />
+                <label>Item link</label>
+                <input id="link" onChange={handleChange} />
+                <button>Add it!</button>
+            </form>
+            <RenderedList currentMember={currentMember} list={list} setList={setList} />
         </div>
     );
 }

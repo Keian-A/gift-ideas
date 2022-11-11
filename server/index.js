@@ -13,7 +13,9 @@ const PORT = process.env.PORT;
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // Esoteric imports
-const routes = require('./src/routes/routes.js');
+const { routes } = require('./src/routes/routes.js');
+const familyMembers = require('./src/data/data.js');
+const { createMember } = require('./src/routes/routes.js');
 
 // Database connection
 mongoose.connect(MONGODB_URI, {
@@ -25,12 +27,13 @@ mongoose.connect(MONGODB_URI, {
 const db = mongoose.connection;
 db.once('open', () => {
     console.log('Database connected!');
+    createMember(familyMembers);
 });
 
-app.get('/members', routes.getMembers);
-app.post('/create-member', routes.createMember);
-app.post('/add-gift', routes.addGift);
-app.post('/remove-gift', routes.removeGift);
+app.post('/validate', routes.validateMember);
+app.post('/addGift', routes.addGift);
+app.post('/deleteGift', routes.removeGift);
+app.post('/updateGift', routes.updateGift);
 
 app.listen(PORT, () => {
     console.log(`SERVER UP AND RUNNING ON PORT ${PORT}`);
