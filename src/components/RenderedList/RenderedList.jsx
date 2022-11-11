@@ -36,34 +36,38 @@ export default function RenderedList({ list, currentMember, setList }) {
     return (
         <div id="renderedList">
             <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Gifts & Links</th>
-                </tr>
-                {list.map((item, idx) => (
-                    <tr key={idx}>
-                        <th>{item.username}</th>
-                        {item.gifts.map((gift, index) => (
-                            <th key={index}>
-                                <h5 id="giftName">{gift.giftName}</h5>
-                                {gift.link ? (
-                                    <a target="_new" href={gift.link}>LINK</a>
-                                ) : null}
-                                {item.username !== currentMember ? gift.bought === true ? <h6>DON'T BUY</h6> : null : null}
-                                {item.username === currentMember ? (
-                                    <div>
-                                        <button id="deleteButton" onClick={() => handleDelete(index)}>Del</button>
-                                    </div>
-                                ) : null}
-                                {item.username !== currentMember ? (
-                                    <div>
-                                        <button id="updateButton" onClick={() => handleUpdate(idx, index)}>Buy</button>
-                                    </div>
-                                ) : null}
-                            </th>
-                        ))}
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Gifts & Links</th>
                     </tr>
-                ))}
+                </thead>
+                <tbody>
+                    {list.map((item, idx) => (
+                        <tr key={idx}>
+                            <th>{item.username}</th>
+                            {item.gifts.map((gift, index) => (
+                                <th key={index}>
+                                    <h5 id="giftName">{gift.giftName}</h5>
+                                    {gift.link ? (
+                                        <a target="_new" href={gift.link}>LINK</a>
+                                    ) : null}
+                                    {item.username !== currentMember ? gift.bought === true ? <h6>DON'T BUY</h6> : null : null}
+                                    {item.username === currentMember ? (
+                                        <div>
+                                            <button id="deleteButton" onClick={() => handleDelete(index)}>Del</button>
+                                        </div>
+                                    ) : null}
+                                    {item.username !== currentMember ? (
+                                        <div>
+                                            <button id="updateButton" onClick={() => handleUpdate(idx, index)}>Buy</button>
+                                        </div>
+                                    ) : null}
+                                </th>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     );
