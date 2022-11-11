@@ -27,7 +27,6 @@ export default function RenderedList({ list, currentMember, setList }) {
             let username = list[person].username;
             let giftObj = { giftNumber: gift, username, currentMember };
             let { data } = await axios.post(`${SERVER_URL}/updateGift`, giftObj);
-            console.log(data);
             setList(data);
         } catch (e) {
             console.error(e.message);
