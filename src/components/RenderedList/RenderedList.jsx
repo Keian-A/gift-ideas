@@ -46,7 +46,9 @@ export default function RenderedList({ list, currentMember, setList }) {
                         {item.gifts.map((gift, index) => (
                             <th key={index}>
                                 <h5 id="giftName">{gift.giftName}</h5>
-                                <a target="_new" href={gift.link}>LINK</a>
+                                {gift.link ? (
+                                    <a target="_new" href={gift.link}>LINK</a>
+                                ) : null}
                                 {item.username !== currentMember ? gift.bought === true ? <h6>DON'T BUY</h6> : null : null}
                                 {item.username === currentMember ? (
                                     <div>
