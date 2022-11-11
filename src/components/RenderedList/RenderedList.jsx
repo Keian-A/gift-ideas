@@ -8,7 +8,7 @@ export default function RenderedList({ list, currentMember, setList }) {
         let giftObj = { giftNumber: gift, username: currentMember }
         try {
             // Removes deleted gift from back-end list
-            await axios.post(`${SERVER_URL}/deleteGift`, giftObj);
+            await axios.post(`${SERVER_URL}/deleteGift/`, giftObj);
             // Removes deleted gift from front-end list
             for (let ii = 0; ii < list.length; ii++) {
                 if (list[ii].username === currentMember) {
@@ -26,7 +26,7 @@ export default function RenderedList({ list, currentMember, setList }) {
         try {
             let username = list[person].username;
             let giftObj = { giftNumber: gift, username, currentMember };
-            let { data } = await axios.post(`${SERVER_URL}/updateGift`, giftObj);
+            let { data } = await axios.post(`${SERVER_URL}/updateGift/`, giftObj);
             setList(data);
         } catch (e) {
             console.error(e.message);
