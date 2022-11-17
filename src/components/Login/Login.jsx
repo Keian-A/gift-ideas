@@ -11,14 +11,16 @@ export default function Login({ setValidated, setList, setCurrentMember }) {
     const handleChange = (e) => {
         switch (e.target.id) {
             case "username":
-                setCred({ username: e.target.value, password: cred.password });
+                let temp = e.target.value;
+                temp = temp.toLowerCase();
+                setCred({ username: temp, password: cred.password });
                 setCurrentMember(e.target.value);
                 break;
             case "password":
                 setCred({ username: cred.username, password: e.target.value });
                 break;
             default:
-                console.error('Idk wtf happened, this should never happen. Burn everything. No witnesses.');
+                console.error('Idk wtf happened, this should never happen. Burn everything. No witnesses. For real though please contact Keian about this.');
         }
     }
 
