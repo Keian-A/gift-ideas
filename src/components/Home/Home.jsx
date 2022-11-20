@@ -13,8 +13,8 @@ export default function Home({ list, currentMember, setList }) {
             let { data } = await axios.post(`${SERVER_URL}/addGift`, { giftName: item.giftName, link: item.link, username: currentMember });
             setList(data);
             setItem({ giftName: '', link: '' });
-        } catch {
-            console.error('Something went wrong...');
+        } catch (e) {
+            console.error(e.message);
         }
     }
 

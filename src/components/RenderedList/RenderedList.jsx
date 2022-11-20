@@ -52,7 +52,7 @@ export default function RenderedList({ list, currentMember, setList }) {
                                     {gift.link ? (
                                         <a target="_new" href={gift.link}>LINK</a>
                                     ) : null}
-                                    {item.username !== currentMember ? gift.bought === true ? <h6>DON'T BUY</h6> : null : null}
+                                    {item.username !== currentMember ? gift.bought === true ? <h6>DON'T BUY - {gift.buyer.toUpperCase()}</h6> : null : null}
                                     {item.username === currentMember ? (
                                         <div>
                                             <button id="deleteButton" onClick={() => handleDelete(index)}>Del</button>
