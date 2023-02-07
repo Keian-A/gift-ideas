@@ -9,5 +9,3 @@ List needs-to-have:
 - Have an option to add an item to your own list, or remove an item on the list
 
 - Created Login component to validate user before asking for the list. Need to validate user on back-end still and then grab full list and send to front-end.
-
-IGNORE THIS TRASH CAN OF A FILE LOL
