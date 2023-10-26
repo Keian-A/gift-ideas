@@ -3,7 +3,7 @@ import RenderedList from '../RenderedList/RenderedList.jsx';
 import axios from 'axios';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-export default function Home({ list, currentMember, setList }) {
+function Home({ list, currentMember, setList }) {
 
     const [item, setItem] = useState({ giftName: '', link: '' });
 
@@ -45,3 +45,5 @@ export default function Home({ list, currentMember, setList }) {
         </div>
     );
 }
+
+export default Home;

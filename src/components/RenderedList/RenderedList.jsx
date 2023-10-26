@@ -2,7 +2,7 @@ import './RenderedList.css';
 import axios from 'axios';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-export default function RenderedList({ list, currentMember, setList }) {
+function RenderedList({ list, currentMember, setList }) {
 
     const handleDelete = async (gift) => {
         let giftObj = { giftNumber: gift, username: currentMember }
@@ -72,3 +72,5 @@ export default function RenderedList({ list, currentMember, setList }) {
         </div>
     );
 }
+
+export default RenderedList;

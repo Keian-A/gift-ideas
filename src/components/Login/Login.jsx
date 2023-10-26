@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-export default function Login({ setValidated, setList, setCurrentMember }) {
+function Login({ setValidated, setList, setCurrentMember }) {
 
     // Credentials
     const [cred, setCred] = useState({ username: '', password: '' });
@@ -44,3 +44,5 @@ export default function Login({ setValidated, setList, setCurrentMember }) {
         </div>
     );
 }
+
+export default Login;
