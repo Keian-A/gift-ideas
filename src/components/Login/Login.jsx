@@ -20,7 +20,7 @@ function Login({ setValidated, setList, setCurrentMember }) {
                 setCred({ username: cred.username, password: e.target.value });
                 break;
             default:
-                console.error('Idk wtf happened, this should never happen. Burn everything. No witnesses. For real though please contact Keian about this.');
+                console.error('This default error should never be hit. Please contact Keian if you see this.');
         }
     }
 
@@ -39,7 +39,7 @@ function Login({ setValidated, setList, setCurrentMember }) {
                 <input id='username' type='text' onChange={handleChange} />
                 <label>Password</label>
                 <input id='password' type='password' onChange={handleChange} />
-                <button>Let's go!</button>
+                <button>Login</button>
             </form>
         </div>
     );
