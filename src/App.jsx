@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Header from './components/Header/Header.jsx';
 import Login from './components/Login/Login.jsx';
 import Home from './components/Home/Home.jsx';
+// import { Route } from 'react-router-dom';
 
 function App() {
 
@@ -12,7 +13,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header setValidated={setValidated} setList={setList} setCurrentMember={setCurrentMember} />
+      {/* <Route path='/' element={<Login />} /> */}
       {validated ?
         null
         :
