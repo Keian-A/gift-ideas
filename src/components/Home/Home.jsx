@@ -36,9 +36,9 @@ function Home({ list, currentMember, setList }) {
             <h3>Add an item to your list</h3>
             <form onSubmit={handleSubmit}>
                 <label>Item name</label>
-                <input id="giftName" value={item.giftName} onChange={handleChange} />
+                <input id="giftName" placeholder='Required' value={item.giftName} onChange={handleChange} />
                 <label>Item link</label>
-                <input id="link" value={item.link} onChange={handleChange} />
+                <input id="link" placeholder='Optional' value={item.link} onChange={handleChange} />
                 <button>Add it!</button>
             </form>
             <RenderedList currentMember={currentMember} list={list} setList={setList} />
