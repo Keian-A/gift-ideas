@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header list={list} setValidated={setValidated} setList={setList} setCurrentMember={setCurrentMember} />
+      <Header currentMember={currentMember} list={list} setValidated={setValidated} setList={setList} setCurrentMember={setCurrentMember} />
       {validated ?
         null
         :
