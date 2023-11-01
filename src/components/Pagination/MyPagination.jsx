@@ -1,26 +1,23 @@
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import { Pagination, Stack, Button } from '@mui/material';
 import { useState } from 'react';
 import './MyPagination.css';
 
-function MyPagination({ handleDelete, gifts, currentMember, open }) {
+function MyPagination({ handlePurchase, handleDelete, gifts, currentMember, open }) {
 
     const [pageApi, setPageApi] = useState(1);
     const itemsPerPage = 5;
     let indexStart = (pageApi * itemsPerPage) - (itemsPerPage);
     let indexEnd = indexStart + itemsPerPage;
     let tempGifts = gifts.slice(indexStart, indexEnd);
-    const pageCount = Math.ceil(gifts.length / itemsPerPage);
+    let pageCount = Math.ceil(gifts.length / itemsPerPage);
 
     const removeItem = (id) => {
-        console.log(id);
         let tempIdx = 0;
-        let tempPagNum = indexEnd;
         for (let ii = 0; ii < gifts.length; ii++) {
             if (gifts[ii]._id === id) {
                 handleDelete(tempIdx);
                 // Checks if deletion caused user to land in empty pagination page, then sets back one page if so (they will never sit on empty page)
-                if ((tempPagNum !== indexEnd) && (pageApi === pageCount)) {
+                if ((Math.ceil((gifts.length - 1) / itemsPerPage)) !== (Math.ceil(gifts.length / itemsPerPage))) {
                     setPageApi(pageApi - 1);
                 }
             } else {
@@ -29,9 +26,20 @@ function MyPagination({ handleDelete, gifts, currentMember, open }) {
         }
     }
 
+    const handleClickedPurchase = (id) => {
+        let tempIdx = 0;
+        for (let ii = 0; ii < gifts.length; ii++) {
+            if (gifts[ii]._id === id) {
+                handlePurchase(tempIdx);
+            } else {
+                tempIdx++;
+            }
+        }
+    }
+
     return (
         <div id="my-pagination">
-            <ul>
+            <ul className='item-list'>
                 {tempGifts.map((gift, idx) => (
                     <li key={idx}>
                         {gift.link ? (
@@ -39,8 +47,14 @@ function MyPagination({ handleDelete, gifts, currentMember, open }) {
                         ) : gift.giftName}
                         {/* Renders delete button only for yourself */}
                         {open === currentMember ? (
-                            <button className='delGift' onClick={() => removeItem(gift._id)}>Delete</button>
-                        ) : null}
+                            <Button variant="outlined " id='delGift' onClick={() => removeItem(gift._id)}>Delete</Button>
+                        ) : gift.bought ? (
+                            // If not rendering delete, that means you are viewing someone else's list, in which case display purchase button as well as who is purchasing it.
+                            <Button onClick={() => handleClickedPurchase(gift._id)}>Bought By {gift.buyer}</Button>
+                        ) : (
+                            // No one is buying, click button to purchase.
+                            <Button onClick={() => handleClickedPurchase(gift._id)}>Buy Gift</Button>
+                        )}
                     </li>
                 ))}
             </ul>

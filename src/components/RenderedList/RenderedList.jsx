@@ -20,8 +20,18 @@ const style = {
 
 function RenderedList({ list, setList, currentMember }) {
 
+    const handlePurchase = async (gift) => {
+        let giftObj = { giftNumber: gift, username: open, currentMember };
+        try {
+            let { data } = await axios.post(`${SERVER_URL}/updateGift`, giftObj);
+            setList(data);
+        } catch (e) {
+            console.error(e.message);
+        }
+    }
+
     const handleDelete = async (gift) => {
-        let giftObj = { giftNumber: gift, username: currentMember }
+        let giftObj = { giftNumber: gift, username: currentMember };
         try {
             // Removes deleted gift from back-end list
             await axios.post(`${SERVER_URL}/deleteGift`, giftObj);
@@ -53,7 +63,7 @@ function RenderedList({ list, setList, currentMember }) {
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={style}>
-                            <MyPagination open={open} currentMember={currentMember} handleDelete={handleDelete} gifts={member.gifts} />
+                            <MyPagination handlePurchase={handlePurchase} open={open} currentMember={currentMember} handleDelete={handleDelete} gifts={member.gifts} />
                         </Box>
                     </Modal>
                 </div>

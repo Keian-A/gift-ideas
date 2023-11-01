@@ -1,4 +1,4 @@
-.delGift {
-    position: absolute;
-    right: 50px;
+.item-list {
+    display: flex;
+    flex-direction: column;
 }
