@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import RenderedList from '../RenderedList/RenderedList.jsx';
 import axios from 'axios';
+import { Button } from '@mui/material';
+import "./Home.css";
+
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Home({ list, currentMember, setList }) {
@@ -34,12 +37,12 @@ function Home({ list, currentMember, setList }) {
     return (
         <div id="home">
             <h3>Add an item to your list</h3>
-            <form onSubmit={handleSubmit}>
-                <label>Item name</label>
-                <input id="giftName" value={item.giftName} onChange={handleChange} />
-                <label>Item link</label>
-                <input id="link" value={item.link} onChange={handleChange} />
-                <button>Add it!</button>
+            <form id="add-item-form" onSubmit={handleSubmit}>
+                <label className='add-form-item'>Item Name</label>
+                <input className='add-form-item' id="giftName" placeholder='Required' value={item.giftName} onChange={handleChange} />
+                <label className='add-form-item'>Link to Purchase</label>
+                <input className='add-form-item' id="link" placeholder='Optional' value={item.link} onChange={handleChange} />
+                <Button type='submit' variant='outlined'>Add it!</Button>
             </form>
             <RenderedList currentMember={currentMember} list={list} setList={setList} />
         </div>

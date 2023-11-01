@@ -1,11 +1,9 @@
+import { Stack, Button } from '@mui/material';
 import './Header.css';
-// import { useNavigate } from 'react-router-dom';
 
-function Header({ setValidated, setList, setCurrentMember }) {
-    // const navigate = useNavigate();
+function Header({ setValidated, setList, setCurrentMember, list }) {
 
     const mainNav = () => {
-        // navigate('/');
         setCurrentMember('');
         setList("");
         setValidated(false);
@@ -13,7 +11,14 @@ function Header({ setValidated, setList, setCurrentMember }) {
 
     return (
         <div id="header">
-            <button id="header-button" onClick={() => mainNav()}>Gift Ideas</button>
+            <h2 id="title">Gift Ideas</h2>
+            <div id="nav-bar">
+                {list ? (
+                    <Stack>
+                        <Button variant="outlined" onClick={() => mainNav()}>Sign Out</Button>
+                    </Stack>
+                ) : null}
+            </div>
         </div>
     );
 }

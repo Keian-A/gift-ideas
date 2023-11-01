@@ -1,0 +1,12 @@
+#add-item-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: stretch;
+}
+
+.add-form-item {
+    width: 30%;
+}

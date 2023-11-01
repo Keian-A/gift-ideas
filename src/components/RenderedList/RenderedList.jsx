@@ -1,11 +1,37 @@
-import './RenderedList.css';
 import axios from 'axios';
+import { useState } from 'react';
+import { Box, Button, Modal } from '@mui/material';
+import MyPagination from '../Pagination/MyPagination';
+import "./RenderedList.css";
+
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function RenderedList({ list, currentMember, setList }) {
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
+function RenderedList({ list, setList, currentMember }) {
+
+    const handlePurchase = async (gift) => {
+        let giftObj = { giftNumber: gift, username: open, currentMember };
+        try {
+            let { data } = await axios.post(`${SERVER_URL}/updateGift`, giftObj);
+            setList(data);
+        } catch (e) {
+            console.error(e.message);
+        }
+    }
 
     const handleDelete = async (gift) => {
-        let giftObj = { giftNumber: gift, username: currentMember }
+        let giftObj = { giftNumber: gift, username: currentMember };
         try {
             // Removes deleted gift from back-end list
             await axios.post(`${SERVER_URL}/deleteGift`, giftObj);
@@ -21,54 +47,27 @@ function RenderedList({ list, currentMember, setList }) {
             console.error(e.message);
         }
     }
-
-    const handleUpdate = async (person, gift) => {
-        try {
-            let username = list[person].username;
-            let giftObj = { giftNumber: gift, username, currentMember };
-            let { data } = await axios.post(`${SERVER_URL}/updateGift`, giftObj);
-            setList(data);
-        } catch (e) {
-            console.error(e.message);
-        }
-    }
+    const [open, setOpen] = useState("");
+    const handleClose = () => setOpen("");
+    const handleOpen = (username) => setOpen(username);
 
     return (
-        <div id="renderedList">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Gifts & Links</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {list.map((item, idx) => (
-                        <tr key={idx}>
-                            <th>{item.username}</th>
-                            {item.gifts.map((gift, index) => (
-                                <th key={index}>
-                                    <h5 id="giftName">{gift.giftName}</h5>
-                                    {gift.link ? (
-                                        <a target="_new" href={gift.link}>LINK</a>
-                                    ) : null}
-                                    {item.username !== currentMember ? gift.bought === true ? <h6>DON'T BUY - {gift.buyer.toUpperCase()}</h6> : null : null}
-                                    {item.username === currentMember ? (
-                                        <div>
-                                            <button id="deleteButton" onClick={() => handleDelete(index)}>Del</button>
-                                        </div>
-                                    ) : null}
-                                    {item.username !== currentMember ? (
-                                        <div>
-                                            <button id="updateButton" onClick={() => handleUpdate(idx, index)}>Buy</button>
-                                        </div>
-                                    ) : null}
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div id="rendered-list">
+            {list.map((member, index) => (
+                <div className="family-member-modal" key={index}>
+                    <Button onClick={() => handleOpen(member.username)}>{member.username}</Button>
+                    <Modal
+                        open={open === member.username}
+                        onClose={() => handleClose()}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <MyPagination handlePurchase={handlePurchase} open={open} currentMember={currentMember} handleDelete={handleDelete} gifts={member.gifts} />
+                        </Box>
+                    </Modal>
+                </div>
+            ))}
         </div>
     );
 }
