@@ -37,6 +37,19 @@ function MyPagination({ handlePurchase, handleDelete, gifts, currentMember, open
         }
     }
 
+    const handleClickedUnpurchase = (id, buyer) => {
+        if (currentMember === buyer) {
+            let tempIdx = 0;
+            for (let ii = 0; ii < gifts.length; ii++) {
+                if (gifts[ii]._id === id) {
+                    handlePurchase(tempIdx);
+                } else {
+                    tempIdx++;
+                }
+            }
+        }
+    }
+
     return (
         <div id="my-pagination">
             <ul className='item-list'>
@@ -50,7 +63,7 @@ function MyPagination({ handlePurchase, handleDelete, gifts, currentMember, open
                             <Button variant="outlined " id='delGift' onClick={() => removeItem(gift._id)}>Delete</Button>
                         ) : gift.bought ? (
                             // If not rendering delete, that means you are viewing someone else's list, in which case display purchase button as well as who is purchasing it.
-                            <Button onClick={() => handleClickedPurchase(gift._id)}>Bought By {gift.buyer}</Button>
+                            <Button onClick={() => handleClickedUnpurchase(gift._id, gift.buyer)}>Bought By {gift.buyer}</Button>
                         ) : (
                             // No one is buying, click button to purchase.
                             <Button onClick={() => handleClickedPurchase(gift._id)}>Buy Gift</Button>
